@@ -1,6 +1,6 @@
 class Board
     attr_reader :cells
-    WINNING_CELLS = [[1,2,3],[4,5,6],[7,8,9]]
+    WINNING_CELLS = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,6,8],[3,7,9],[1,5,9],[3,5,7]]
     def initialize
       puts " ## BOARD INITIALIZED."
       @cells = {}
@@ -19,8 +19,10 @@ class Board
     def update_board(mark, cell_index)
         if cells[cell_index] == " "
           cells[cell_index] = mark
+          return true
         else
-          puts "That cell is not empty!"
+          puts " THAT CELL IS NOT EMPTY! "
+          return false
         end
     end
 

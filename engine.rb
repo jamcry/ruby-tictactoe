@@ -9,9 +9,9 @@ class Engine
   end
 
   def make_move(mark, cell)
-    @board.update_board(mark, cell)
+    board_update = @board.update_board(mark, cell)
     @board.show_board
-    check_winner
+    return board_update
   end
 
   def check_winner
@@ -27,30 +27,50 @@ class Engine
       end
       if x_count == 3 || o_count == 3
         puts "THERE IS A WINNER"
-        puts x_count == 3 ? "X WINS" : "O WINS"
+        return x_count == 3 ? "X WINS" : "O WINS"
         break
       end
     end
   end
 
   def get_player_choice(player)
-    puts " Player (#{player.mark}) choose cell (1-9): "
-    cell = gets.chomp.to_i
+    # get user input until a valid cell number is entered
+    while true
+      print " Player (#{player.mark}) choose cell (1-9): "
+      cell = gets.chomp.to_i
+
+      if !(cell >= 1 && cell <= 9)
+        puts " INVALID CELL. ENTER A NUMBER BETWEEN (1-9)!"
+      else
+        break
+      end
+
+    end
     return cell
   end
 
+  def start_game
+    round = 1
+    while true
+      if round == 10; puts "TIE"; break; end;
+      # swap current_player each round
+      current_player = round % 2 == 0 ? @player_x : @player_o
+
+      valid_move = false
+      while !valid_move
+        cell = self.get_player_choice(current_player)
+        valid_move = self.make_move(current_player.mark, cell)
+      end
+
+      end_game = self.check_winner
+      if end_game.include? "WINS"
+        puts end_game
+        break
+      end
+      round += 1
+    end
+    
+  end
 end
-
-player_1 = Player.new("Cem", "X")
-player_2 = Player.new("PC", "O")
-board = Board.new
-
-engine = Engine.new(player_1, player_2, board)
-engine.make_move("O",2)
-engine.make_move("O",1)
-cell = engine.get_player_choice(player_1)
-engine.make_move(player_1.mark, cell)
-cell = engine.get_player_choice(player_2)
-engine.make_move(player_2.mark, cell)
 
 
