@@ -1,3 +1,4 @@
+#lib/engine.rb
 require 'player'
 require 'board'
 
@@ -8,9 +9,9 @@ class Engine
       @board = board
   end
 
-  def make_move(mark, cell)
+  def make_move(mark, cell, show=true)
     board_update = @board.update_board(mark, cell)
-    @board.show_board
+    @board.show_board if show
     return board_update
   end
 
@@ -26,7 +27,7 @@ class Engine
         end
       end
       if x_count == 3 || o_count == 3
-        puts "THERE IS A WINNER"
+        puts " [!] THERE IS A WINNER"
         return x_count == 3 ? "X WINS" : "O WINS"
         break
       end
