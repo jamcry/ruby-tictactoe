@@ -1,5 +1,5 @@
-require './player.rb'
-require './board.rb'
+require 'player'
+require 'board'
 
 class Engine
   def initialize(player_x, player_o, board)

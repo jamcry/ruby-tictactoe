@@ -1,6 +1,6 @@
-require './engine.rb'
-require './board.rb'
-require './player.rb'
+require 'engine'
+require 'board'
+require 'player'
 
 player_1 = Player.new("Cem", "X")
 player_2 = Player.new("PC", "O")
