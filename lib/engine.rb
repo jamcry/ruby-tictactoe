@@ -1,6 +1,6 @@
 #lib/engine.rb
-require 'player'
-require 'board'
+require_relative 'player'
+require_relative 'board'
 
 class Engine
   def initialize(player_x, player_o, board)
@@ -37,11 +37,11 @@ class Engine
   def get_player_choice(player)
     # get user input until a valid cell number is entered
     while true
-      print " Player (#{player.mark}) choose cell (1-9): "
+      print " [>] Player (#{player.mark}) choose cell (1-9): "
       cell = gets.chomp.to_i
 
       if !(cell >= 1 && cell <= 9)
-        puts " INVALID CELL. ENTER A NUMBER BETWEEN (1-9)!"
+        puts " [X] INVALID CELL. ENTER A NUMBER BETWEEN (1-9)!"
       else
         break
       end
